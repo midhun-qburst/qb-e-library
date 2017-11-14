@@ -1,4 +1,4 @@
-var saveBook = () => {
+let saveBook = () => {
     const bookTitle = document.getElementById('title').value;
     const bookAuthor = document.getElementById('author').value;
     const bookPrice = document.getElementById('price').value;
@@ -25,4 +25,26 @@ var saveBook = () => {
      localStorage.setItem('books', JSON.stringify(books));
    }
      
+}
+
+let getBookList = (event)=> {
+  const books = JSON.parse(localStorage.getItem('books'));
+  let bookList = document.getElementById('bookList');
+  bookList.innerHTML = '';
+
+  books.forEach(element => {
+    console.log(element);
+    const {title, author, price, summary, authorMail, authorPhone} = element;
+
+    $('#bookList').append(  '<div >' + '<span>' + title + '</span>' +
+    '<span>' + author + '</span>' +
+    //'<div>' + price + '</div>' +
+    //'<div>' + summary + '</div>' +
+    //'<div>' + authormail + '</div>' +
+    //'<div>' + authorPhone + '</div>' +
+    '</div>'
+  ); 
+    event.preventDefault();
+  });
+
 }
