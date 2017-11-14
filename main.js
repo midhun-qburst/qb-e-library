@@ -1,11 +1,10 @@
 var saveBook = () => {
-    const bookTitle = document.getElementById('Title').value;
-    const bookAuthor = document.getElementById('Author').value;
-    const bookPrice = document.getElementById('Price').value;
-    const bookSummary = document.getElementById('Summary').value;
-    const mail = document.getElementById('AuthorMail').value;
-    const phone = document.getElementById('AuthorPhone').value;
-
+    const bookTitle = document.getElementById('title').value;
+    const bookAuthor = document.getElementById('author').value;
+    const bookPrice = document.getElementById('price').value;
+    const bookSummary = document.getElementById('summary').value;
+    const mail = document.getElementById('authorMail').value;
+    const phone = document.getElementById('authorPhone').value;
     var book = {
         title: bookTitle,
         author: bookAuthor,
