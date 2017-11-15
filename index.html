@@ -15,7 +15,7 @@
     <a href="/bookListingHome.html">Show added books</a>
     <form id="addBookForm" >
       Title<span style="color:red">*</span>:
-      <input type="text" id="title" required='true' />
+      <input  type="text" id="title" required />
       <br> Author<span style="color:red">*</span>:
       <input type="text" id="author" required />
       <br> Price:
@@ -24,11 +24,11 @@
       <br>
       <textarea id="summary" cols="30" rows="10"></textarea>
       <br> Author e-mail:
-      <input type="text" id="authorMail" pattern="">
+      <input type="text" id="authorMail" >
       <br> Author Phone:
-      <input type="text" id="authorPhone" pattern=" |[0-9]{10}">
+      <input type="text" id="authorPhone" pattern=" |[0-9]{10,12}">
       <br>
-      <input type="submit" value="Add" onclick="saveBook();">
+      <input type="submit" value="Add" onclick="saveBook(event);">
      
     </form>
     <input type="button" value="List Books" onclick="getBookList(event);">

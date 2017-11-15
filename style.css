@@ -1,0 +1,8 @@
+input:invalid {
+    border: .5px dashed rgb(189, 73, 73);
+    
+  }
+  
+input:valid {
+    border: 1px solid rgba(0, 0, 0, 0.534);
+  }
