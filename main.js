@@ -1,3 +1,7 @@
+/**
+ * Saves details of a book to local storage.
+ * @param {*} event 
+ */
 let saveBook = (event) => {
   const bookTitle = document.getElementById('title').value;
   const bookAuthor = document.getElementById('author').value;
@@ -5,12 +9,16 @@ let saveBook = (event) => {
   const bookSummary = document.getElementById('summary').value;
   const mail = document.getElementById('authorMail').value;
   const phone = document.getElementById('authorPhone').value;
+  //Regular Expression - E mail
   const emailPattern = '(.+)@(.+){2,}\.(.+){2,}';
   const emailRegex = RegExp(emailPattern);
+  //Regular Expression - Phone Number
   const phonePattern = '[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}';
   const phoneRegex = RegExp(phonePattern);
+  //Regular Expression - Book Price
   const pricePattern = '[0-9]';
   const priceRegex = RegExp(pricePattern);
+
   if (bookTitle.length == 0) {
     alert("Hey.. You forgot to name me..!");
     event.preventDefault();
@@ -54,6 +62,10 @@ let saveBook = (event) => {
   }
 }
 
+/**
+ * Fetches the entire list of books from local storage.
+ * @param {*} event 
+ */
 let getBookList = (event) => {
   const books = JSON.parse(localStorage.getItem('books'));
   let bookList = document.getElementById('bookList');
@@ -63,12 +75,13 @@ let getBookList = (event) => {
     console.log(element);
     const { title, author, price, summary, authorMail, authorPhone } = element;
 
-    $('#bookList').append('<div >' + '<span>' + title + '</span>' +
+    $('#bookList').append('<div class="card-block col-lg-3" >' +
+      '<span class="book-tile">' + title + '</span>' +
       '<span>' + author + '</span>' +
-      //'<span>' + price + '</span>' +
-      //'<div>' + summary + '</span>' +
-      //'<div>' + authormail + '</span>' +
-      //'<span>' + authorPhone + '</span>' +
+      '<span>' + price + '</span>' +
+      '<span>' + summary + '</span>' +
+      '<span>' + authorMail + '</span>' +
+      '<span>' + authorPhone + '</span>' +
       '</div>'
     );
     event.preventDefault();
