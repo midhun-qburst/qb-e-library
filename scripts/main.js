@@ -22,25 +22,30 @@ let saveBook = (event) => {
   if (bookTitle.length == 0) {
     alert("Hey.. You forgot to name me..!");
     event.preventDefault();
+    return;
     }
   if (bookAuthor.length == 0) {
     alert("Who created me ?");
     event.preventDefault();  
+    return;
   }
   if(!priceRegex.test(bookPrice) && bookPrice.length > 0) {
     alert("Please Enter the numeric price..!");
     event.preventDefault();
+    return;
   }
   if(!emailRegex.test(mail) && mail.length > 0) {
     alert("Please enter a valid email address..!");
     event.preventDefault();
+    return;
   }
   if(!phoneRegex.test(phone) && phone.length > 0) {
     alert("Please enter a valid phone number..!");
     event.preventDefault();
+    return;
   }
   
-  else {
+  
     var book = {
       title: bookTitle,
       author: bookAuthor,
@@ -60,7 +65,6 @@ let saveBook = (event) => {
       localStorage.setItem('books', JSON.stringify(books));
     }
   }
-}
 
 /**
  * Fetches the entire list of books from local storage.
