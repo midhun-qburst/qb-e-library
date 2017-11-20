@@ -70,10 +70,16 @@ let saveBook = (event) => {
  * Fetches the entire list of books from local storage.
  * @param {*} event 
  */
-let getBookList = (event) => {
-  const books = JSON.parse(localStorage.getItem('books'));
+let getBookList = (event, searchKey = 'b') => {
+  let books = JSON.parse(localStorage.getItem('books'));
   let bookList = document.getElementById('bookList');
   bookList.innerHTML = '';
+
+  if(searchKey != null) {
+    books = books.filter((book) => {
+      return book.title.toLowerCase().includes(searchKey.toLowerCase());
+    });
+  }
 
   books.forEach(element => {
     console.log(element);

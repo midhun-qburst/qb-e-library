@@ -6,16 +6,29 @@
     <meta charset="utf-8">
     <title>e-book Library</title>
     <link rel="stylesheet" type="text/css" href="../styles/style.css" />
+    <!-- <script>
+        $(function(){
+      $("#includedContent").load("/home/midhun/Git Repos/qb-e-library/searchBox/index.html"); 
+    });
+    </script> -->
 </head>
 
 <body onload="getBookList(event);">
     <h1>e-book Library</h1>
+    
+    <!-- <div id="includedContent"></div> -->
+    <div class="container" style="margin: 10px 10px 10px 10px;">
+            <div>
+                <input id="search" placeholder="Search..." type="text" onchange="getBookList(event,value);" />
+                <span>Hit enter or click elsewhere to search</span>
+            </div>
+        </div>
     <div>
         <div id="bookList" class="card" style="width:100%;"></div>
         <div>
             <a href="../index.html">Add more books</a>
         </div>
-    </div>
+    </div>     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
