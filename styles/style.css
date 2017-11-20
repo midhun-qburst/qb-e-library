@@ -1,0 +1,20 @@
+input:invalid {
+    border: .5px dashed rgb(189, 73, 73);
+    
+  }
+  
+input:valid {
+    border: 1px solid rgba(0, 0, 0, 0.534);
+  }
+.card-block span {
+    width: 100%;
+    display: inline-block;
+}
+
+.book-tile {
+    border: blue;
+    background-color: rosybrown;
+    border-color: rgb(202, 3, 3);
+    border-width: 4px 4px 4px 4px;
+
+}
