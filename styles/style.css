@@ -23,13 +23,23 @@ form label {
     display: inline-block;
 }
 /* A single card on book listing page */
-.book-tile {
+.book-title {
     border: blue;
     background-color: rosybrown;
     border-color: rgb(202, 3, 3);
     border-width: 4px 4px 4px 4px;
-
 }
+/* Tile properties */
+.book-tile {
+    min-height: 162px;
+    padding: 10px;
+    
+}
+/* Border of tile */
+.book-tile > div{
+    border: 1px solid rosybrown;    
+}
+
 /* Colors the text red */
 .red {
     color: red;

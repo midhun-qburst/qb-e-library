@@ -79,13 +79,15 @@ let getBookList = (event) => {
     console.log(element);
     const { title, author, price, summary, authorMail, authorPhone } = element;
 
-    $('#bookList').append('<div class="card-block col-lg-3" >' +
-      '<span class="book-tile">' + title + '</span>' +
+    $('#bookList').append('<div class="card-block col-lg-3 book-tile" >' +
+      '<div class="test">' +
+      '<span class="book-title">' + title + '</span>' +
       '<span>' + author + '</span>' +
       '<span>' + price + '</span>' +
       '<span>' + summary + '</span>' +
       '<span>' + authorMail + '</span>' +
       '<span>' + authorPhone + '</span>' +
+      '</div>' +
       '</div>'
     );
     event.preventDefault();
