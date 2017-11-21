@@ -1,19 +1,21 @@
 /* An input text box with an invalid entry */
 input:invalid {
-    border: .5px dashed rgb(189, 73, 73);
-    
+    border: .5px dashed rgb(189, 73, 73);    
   }
 
 /* An input text box with a valid entry */
 input:valid {
     border: 1px solid rgba(0, 0, 0, 0.534);
   }
+
 h1 {
     text-align: center;
 }
+
 form label {
      display: block; 
-    }
+}
+/* To centralize the form and book list display */
 .centralize {
     width: 700px
 }
