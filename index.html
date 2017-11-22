@@ -9,13 +9,13 @@
   <link rel="stylesheet" type="text/css" href="styles/style.css" />
 </head>
 
-<body>
+<body onload="bookListButtonVisibility();">
   <div style="padding-bottom:20px">
     <h1>e-book Library</h1>
   </div>
   <div class="jumbotron">
     <div class="container centralize">
-      <a class="btn btn-primary" href="views/bookListingHome.html">Show added books</a>
+      <a class="btn btn-primary" id="showListButton" href="views/bookListingHome.html">Show added books</a>
       <h2>Book Details</h2>
 
       <form id="addBookForm">
@@ -34,7 +34,7 @@
 
         <div class="form-group">
           <label for="price">Price:</label>
-          <input type="text" id="price" >
+          <input type="text" id="price">
         </div>
 
         <div class="form-group">
