@@ -74,7 +74,7 @@ let getBookList = (event) => {
   const books = JSON.parse(localStorage.getItem('books'));
   let bookList = document.getElementById('bookList');
   bookList.innerHTML = '';
-
+  if(books)
   books.forEach(element => {
     console.log(element);
     const { title, author, price, summary, authorMail, authorPhone } = element;
@@ -92,4 +92,13 @@ let getBookList = (event) => {
     );
     event.preventDefault();
   });
+}
+/**
+ * Hides "Show added books" button if there are no entries.
+ */
+let bookListButtonVisibility = () => {
+  const books = JSON.parse(localStorage.getItem('books'));
+  if (!books) {
+    document.getElementById("showListButton").style.visibility = "hidden";
+  }
 }
