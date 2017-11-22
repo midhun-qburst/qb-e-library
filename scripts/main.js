@@ -93,7 +93,7 @@ debugger
       listLabels.title = data.TITLE;
       listLabels.author = data.AUTHOR;
       listLabels.price = data.PRICE;
-      listLabels.authorMail = data.AUTHOR_MAIL;
+      listLabels.authorMail = data.AUTHOR_EMAIL;
       listLabels.authorPhone = data.AUTHOR_PHONE;     
       $(document).ready(() => {
         $('#book-table').DataTable({
