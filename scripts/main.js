@@ -23,48 +23,48 @@ let saveBook = (event) => {
     alert("Hey.. You forgot to name me..!");
     event.preventDefault();
     return;
-    }
+  }
   if (bookAuthor.length == 0) {
     alert("Who created me ?");
-    event.preventDefault();  
+    event.preventDefault();
     return;
   }
-  if(!priceRegex.test(bookPrice) && bookPrice.length > 0) {
+  if (!priceRegex.test(bookPrice) && bookPrice.length > 0) {
     alert("Please Enter the numeric price..!");
     event.preventDefault();
     return;
   }
-  if(!emailRegex.test(mail) && mail.length > 0) {
+  if (!emailRegex.test(mail) && mail.length > 0) {
     alert("Please enter a valid email address..!");
     event.preventDefault();
     return;
   }
-  if(!phoneRegex.test(phone) && phone.length > 0) {
+  if (!phoneRegex.test(phone) && phone.length > 0) {
     alert("Please enter a valid phone number..!");
     event.preventDefault();
     return;
   }
-  
-  
-    var book = {
-      title: bookTitle,
-      author: bookAuthor,
-      price: bookPrice,
-      summary: bookSummary,
-      authorMail: mail,
-      authorPhone: phone
-    }
 
-    if (localStorage.getItem('books') === null) {
-      let books = [];
-      books.push(book);
-      localStorage.setItem('books', JSON.stringify(books));
-    } else {
-      let books = JSON.parse(localStorage.getItem('books'));
-      books.push(book);
-      localStorage.setItem('books', JSON.stringify(books));
-    }
+
+  var book = {
+    title: bookTitle,
+    author: bookAuthor,
+    price: bookPrice,
+    summary: bookSummary,
+    authorMail: mail,
+    authorPhone: phone
   }
+
+  if (localStorage.getItem('books') === null) {
+    let books = [];
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
+  } else {
+    let books = JSON.parse(localStorage.getItem('books'));
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+}
 
 /**
  * Fetches the entire list of books from local storage.
@@ -79,13 +79,15 @@ let getBookList = (event) => {
     console.log(element);
     const { title, author, price, summary, authorMail, authorPhone } = element;
 
-    $('#bookList').append('<div class="card-block col-lg-3" >' +
-      '<span class="book-tile">' + title + '</span>' +
+    $('#bookList').append('<div class="card-block col-lg-3 book-tile" >' +
+      '<div class="test">' +
+      '<span class="book-title">' + title + '</span>' +
       '<span>' + author + '</span>' +
       '<span>' + price + '</span>' +
       '<span>' + summary + '</span>' +
       '<span>' + authorMail + '</span>' +
       '<span>' + authorPhone + '</span>' +
+      '</div>' +
       '</div>'
     );
     event.preventDefault();
