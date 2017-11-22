@@ -80,25 +80,36 @@ let getBookList = (event) => {
     authorMail: '',
     authorPhone: ''
   }
-
+  let listLabels = {...bookInList};
+debugger
   if (books) {
     books.forEach(element => {
       Object.assign(bookInList, element);
       dataSet.push(Object.values(bookInList));
     });
 
-    $(document).ready(() => {
-      $('#book-table').DataTable({
-        data: dataSet,
-        columns: [
-          { title: "Title" },
-          { title: "Author" },
-          { title: "Price" },
-          { title: "Author Email" },
-          { title: "Author Phone" }
-        ]
+    $.getJSON('../resources/bookMetadata.json',(data) => {
+      console.log(data);
+      listLabels.title = data.TITLE;
+      listLabels.author = data.AUTHOR;
+      listLabels.price = data.PRICE;
+      listLabels.authorMail = data.AUTHOR_MAIL;
+      listLabels.authorPhone = data.AUTHOR_PHONE;     
+      $(document).ready(() => {
+        $('#book-table').DataTable({
+          data: dataSet,
+          columns: [
+            { title: listLabels.title },
+            { title: listLabels.author },
+            { title: listLabels.price },
+            { title: listLabels.authorMail },
+            { title: listLabels.authorPhone }
+          ]
+        });
       });
     });
+
+    
   }
 }
 /**
