@@ -45,11 +45,10 @@ let saveBook = (event) => {
     return;
   }
 
-
   var book = {
     title: bookTitle,
     author: bookAuthor,
-    price: bookPrice,
+    price: bookPrice.toLocaleString(),
     summary: bookSummary,
     authorMail: mail,
     authorPhone: phone
@@ -73,25 +72,34 @@ let saveBook = (event) => {
 let getBookList = (event) => {
   const books = JSON.parse(localStorage.getItem('books'));
   let bookList = document.getElementById('bookList');
-  bookList.innerHTML = '';
-  if(books)
-  books.forEach(element => {
-    console.log(element);
-    const { title, author, price, summary, authorMail, authorPhone } = element;
+  let dataSet = [];
+  let bookInList = {
+    title: '',
+    author: '',
+    price: '',
+    authorMail: '',
+    authorPhone: ''
+  }
 
-    $('#bookList').append('<div class="card-block col-lg-3 book-tile" >' +
-      '<div class="test">' +
-      '<span class="book-title">' + title + '</span>' +
-      '<span>' + author + '</span>' +
-      '<span>' + price + '</span>' +
-      '<span>' + summary + '</span>' +
-      '<span>' + authorMail + '</span>' +
-      '<span>' + authorPhone + '</span>' +
-      '</div>' +
-      '</div>'
-    );
-    event.preventDefault();
-  });
+  if (books) {
+    books.forEach(element => {
+      Object.assign(bookInList, element);
+      dataSet.push(Object.values(bookInList));
+    });
+
+    $(document).ready(() => {
+      $('#book-table').DataTable({
+        data: dataSet,
+        columns: [
+          { title: "Title" },
+          { title: "Author" },
+          { title: "Price" },
+          { title: "Author Email" },
+          { title: "Author Phone" }
+        ]
+      });
+    });
+  }
 }
 /**
  * Hides "Show added books" button if there are no entries.
