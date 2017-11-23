@@ -5,7 +5,7 @@
 let saveBook = (event) => {
   const bookTitle = document.getElementById('title').value;
   const bookAuthor = document.getElementById('author').value;
-  const bookPrice = document.getElementById('price').value;
+  let bookPrice = document.getElementById('price').value;
   const bookSummary = document.getElementById('summary').value;
   const mail = document.getElementById('authorMail').value;
   const phone = document.getElementById('authorPhone').value;
@@ -48,7 +48,7 @@ let saveBook = (event) => {
   var book = {
     title: bookTitle,
     author: bookAuthor,
-    price: bookPrice.toLocaleString(),
+    price: bookPrice,
     summary: bookSummary,
     authorMail: mail,
     authorPhone: phone
@@ -71,8 +71,7 @@ let saveBook = (event) => {
  */
 let getBookList = (event) => {
   const books = JSON.parse(localStorage.getItem('books'));
-  let bookList = document.getElementById('bookList');
-  let dataSet = [];
+  let bookList = [];
   let bookInList = {
     title: '',
     author: '',
@@ -81,35 +80,43 @@ let getBookList = (event) => {
     authorPhone: ''
   }
   let listLabels = {...bookInList};
-debugger
   if (books) {
     books.forEach(element => {
+      //Formats price value to international format.
+      element.price = '$' + Number.parseInt(element.price).toLocaleString();     
+      if(!element.authorMail.length) {
+        element.authorMail = 'nil';
+      } 
+      if(!element.authorPhone.length) {
+        element.authorPhone = '-';
+      } 
       Object.assign(bookInList, element);
-      dataSet.push(Object.values(bookInList));
+      bookList.push(Object.values(bookInList));
     });
 
-    $.getJSON('../resources/bookMetadata.json',(data) => {
-      console.log(data);
-      listLabels.title = data.TITLE;
-      listLabels.author = data.AUTHOR;
-      listLabels.price = data.PRICE;
-      listLabels.authorMail = data.AUTHOR_EMAIL;
-      listLabels.authorPhone = data.AUTHOR_PHONE;     
+    $.getJSON('../resources/bookMetadata.json',(label) => {
+      listLabels.title = label.TITLE;
+      listLabels.author = label.AUTHOR;
+      listLabels.price = label.PRICE;      
+      listLabels.authorMail = label.AUTHOR_EMAIL;
+      listLabels.authorPhone = label.AUTHOR_PHONE;     
       $(document).ready(() => {
         $('#book-table').DataTable({
-          data: dataSet,
+          data: bookList,
           columns: [
             { title: listLabels.title },
             { title: listLabels.author },
             { title: listLabels.price },
             { title: listLabels.authorMail },
-            { title: listLabels.authorPhone }
+            { title: listLabels.authorPhone },
+          ],
+          "columnDefs": [
+            { className: "dt-body-right", "targets": [ 2,4 ] }
           ]
+          
         });
       });
-    });
-
-    
+    });    
   }
 }
 /**
