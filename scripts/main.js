@@ -1,26 +1,26 @@
 // Get the modal
-const modal = document.getElementById('addBookModal');
+const addModal = document.getElementById('addBookModal');
 
 // Get the button that opens the modal
-const btn = document.getElementById("addBookBtn");
+const addBtn = document.getElementById("addBookBtn");
 
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = () => {
-    modal.style.display = "block";
+addBtn.onclick = () => {
+  addModal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = () => {
-    modal.style.display = "none";
+  addModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = (event) => {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target == addModal) {
+      addModal.style.display = "none";
     }
 }
 
@@ -109,7 +109,7 @@ let getBookList = (event) => {
   if (books) {
     books.forEach(element => {
       //Formats price value to international format.
-      element.price = '$' + Number.parseInt(element.price).toLocaleString();     
+      element.price = element.price ? '$' + Number.parseInt(element.price).toLocaleString() : '-';     
       if(!element.authorMail.length) {
         element.authorMail = 'nil';
       } 
@@ -127,7 +127,7 @@ let getBookList = (event) => {
       listLabels.authorMail = label.AUTHOR_EMAIL;
       listLabels.authorPhone = label.AUTHOR_PHONE;     
       $(document).ready(() => {
-        $('#book-table').DataTable({
+        const table = $('#book-table').DataTable({
           data: bookList,
           columns: [
             { title: listLabels.title },
@@ -141,8 +141,17 @@ let getBookList = (event) => {
           ]
           
         });
+        $('#book-table tbody').on('click', 'tr', function () {
+          var data = table.row( this ).data();
+          alert( 'You clicked on '+data[0]+'\'s row' );
+      } );
       });
     });    
+  }
+  else {
+    $('#book-table').append(
+      '<div>Hi, your books will get listed here once you add them. Have a good day..!! </div>' 
+    );
   }
 }
 /**

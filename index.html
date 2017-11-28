@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>e-book Library</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine|Shadows+Into+Light|Lobster|Gloria+Hallelujah">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
@@ -11,13 +12,13 @@
 </head>
 
 <body onload="getBookList(event);">
-    <div style="padding-bottom:20px">
+    <div >
         <h1>e-book Library</h1>
         <!-- Book List -->
         <div class="jumbotron">
             <div class="container">
 
-                <button id="addBookBtn" class="btn btn-primary btn-sm" style="float:right;margin:5px 5px;">Add</button>
+                <button id="addBookBtn" class="btn btn-primary">Add</button>
 
             </div>
             <div class="container ">
@@ -35,19 +36,19 @@
                         <h2>Add a book...</h2>
 
                         <form id="addBookForm">
-                            <div style="display:flex">
-                                <div class="form-group" style="flex:30%">
+                            <div class='row'>
+                                <div class="form-group col-md-4">
                                     <label for="title">Title
                                         <span class="red">*</span>:</label>
                                     <input type="text" id="title" required autofocus/>
                                 </div>
 
-                                <div class="form-group " style="flex:33%">
+                                <div class="form-group col-md-4">
                                     <label for="author">Author
                                         <span class="red">*</span>:</label>
                                     <input type="text" id="author" required />
                                 </div>
-                                <div class="form-group" style="flex:19%">
+                                <div class="form-group col-md-4">
                                     <label for="price">Price:</label>
                                     <input type="text" id="price">
 
@@ -55,22 +56,22 @@
                             </div>
                             <div class="form-group">
                                 <label for="summary">Summary:</label>
-                                <textarea id="summary" cols="80" rows="10"></textarea>
+                                <textarea id="summary" rows="10"></textarea>
                             </div>
-                            <div style="display:flex">
+                            <div class="row">
 
-                                <div class="form-group" style="flex:50%">
+                                <div class="form-group col-md-6">
                                     <label for="authorMail">Author e-mail:</label>
                                     <input type="text" id="authorMail">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-md-6">
                                     <label for="authorPhone">Author Phone:</label>
                                     <input type="text" id="authorPhone" pattern=" |[0-9]{10,12}">
                                 </div>
                             </div>
                         </form>
-                        <input class="btn btn-primary " style="float:right" type="submit" value="Add" form="addBookForm" onclick="saveBook(event);">
+                        <input class="btn btn-primary pull-right" type="submit" value="Add" form="addBookForm" onclick="saveBook(event);">
                     </div>
                 </div>
             </div>
