@@ -1,3 +1,29 @@
+// Get the modal
+const addModal = document.getElementById('addBookModal');
+
+// Get the button that opens the modal
+const addBtn = document.getElementById("addBookBtn");
+
+// Get the <span> element that closes the modal
+const span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+addBtn.onclick = () => {
+  addModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = () => {
+  addModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = (event) => {
+    if (event.target == addModal) {
+      addModal.style.display = "none";
+    }
+}
+
 /**
  * Saves details of a book to local storage.
  * @param {*} event 
@@ -5,7 +31,7 @@
 let saveBook = (event) => {
   const bookTitle = document.getElementById('title').value;
   const bookAuthor = document.getElementById('author').value;
-  const bookPrice = document.getElementById('price').value;
+  let bookPrice = document.getElementById('price').value;
   const bookSummary = document.getElementById('summary').value;
   const mail = document.getElementById('authorMail').value;
   const phone = document.getElementById('authorPhone').value;
@@ -45,7 +71,6 @@ let saveBook = (event) => {
     return;
   }
 
-
   var book = {
     title: bookTitle,
     author: bookAuthor,
@@ -72,26 +97,62 @@ let saveBook = (event) => {
  */
 let getBookList = (event) => {
   const books = JSON.parse(localStorage.getItem('books'));
-  let bookList = document.getElementById('bookList');
-  bookList.innerHTML = '';
-  if(books)
-  books.forEach(element => {
-    console.log(element);
-    const { title, author, price, summary, authorMail, authorPhone } = element;
+  let bookList = [];
+  let bookInList = {
+    title: '',
+    author: '',
+    price: '',
+    authorMail: '',
+    authorPhone: ''
+  }
+  let listLabels = {...bookInList};
+  if (books) {
+    books.forEach(element => {
+      //Formats price value to international format.
+      element.price = element.price ? '$' + Number.parseInt(element.price).toLocaleString() : '-';     
+      if(!element.authorMail.length) {
+        element.authorMail = 'nil';
+      } 
+      if(!element.authorPhone.length) {
+        element.authorPhone = '-';
+      } 
+      Object.assign(bookInList, element);
+      bookList.push(Object.values(bookInList));
+    });
 
-    $('#bookList').append('<div class="card-block col-lg-3 book-tile" >' +
-      '<div class="test">' +
-      '<span class="book-title">' + title + '</span>' +
-      '<span>' + author + '</span>' +
-      '<span>' + price + '</span>' +
-      '<span>' + summary + '</span>' +
-      '<span>' + authorMail + '</span>' +
-      '<span>' + authorPhone + '</span>' +
-      '</div>' +
-      '</div>'
+    $.getJSON('../resources/bookMetadata.json',(label) => {
+      listLabels.title = label.TITLE;
+      listLabels.author = label.AUTHOR;
+      listLabels.price = label.PRICE;      
+      listLabels.authorMail = label.AUTHOR_EMAIL;
+      listLabels.authorPhone = label.AUTHOR_PHONE;     
+      $(document).ready(() => {
+        const table = $('#book-table').DataTable({
+          data: bookList,
+          columns: [
+            { title: listLabels.title },
+            { title: listLabels.author },
+            { title: listLabels.price },
+            { title: listLabels.authorMail },
+            { title: listLabels.authorPhone },
+          ],
+          "columnDefs": [
+            { className: "dt-body-right", "targets": [ 2,4 ] }
+          ]
+          
+        });
+        $('#book-table tbody').on('click', 'tr', function () {
+          var data = table.row( this ).data();
+          alert( 'You clicked on '+data[0]+'\'s row' );
+      } );
+      });
+    });    
+  }
+  else {
+    $('#book-table').append(
+      '<div>Hi, your books will get listed here once you add them. Have a good day..!! </div>' 
     );
-    event.preventDefault();
-  });
+  }
 }
 /**
  * Hides "Show added books" button if there are no entries.
