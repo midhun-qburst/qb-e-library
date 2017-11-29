@@ -11,15 +11,12 @@
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
 </head>
 
-<body onload="getBookList(event);">
-    <div >
+<body onload="getBookList(event);showSuccessToaster();">
+    <div>
         <h1>e-book Library</h1>
-        <!-- Book List -->
-        <!-- <div id="successToaster" class="modal">
-                <div class="modal-content toaster"> -->
-                    <label id="successToasterLabel" class="invisible" >Book added successfully</label>
-                    <!-- </div>
-                    </div> -->
+
+        <label id="successToasterLabel" class="toaster invisible">Book added successfully</label>
+
         <div class="jumbotron">
             <div class="container">
 
@@ -32,7 +29,7 @@
             </div>
         </div>
 
-        
+
 
         <!-- Add Modal -->
         <div id="addBookModal" class="modal">
@@ -42,12 +39,12 @@
                 <div class="jumbotron">
                     <div class="container ">
                         <h2 id="addBookHeader">Add a book...</h2>
-                        <h2 id="editBookHeader">Edit details of title </h2>                        
+                        <h2 id="editBookHeader">Edit details of title </h2>
                         <input class="invisible" type="text" id="bookId">
-                       
-                        <form id="addBookForm" >
+
+                        <form id="addBookForm">
                             <div class='row'>
-                                
+
                                 <div class="form-group col-md-4">
                                     <label for="title">Title
                                         <span class="red">*</span>:</label>
@@ -84,7 +81,7 @@
                         </form>
                         <input id="addBtn" class="btn btn-primary pull-right" type="submit" value="Add" form="addBookForm" onclick="saveBook(event);showSuccessToaster()">
                         <input id="editBtn" class="btn btn-primary pull-right" type="submit" value="Edit" form="addBookForm" onclick="updateBook();">
-                        
+
                     </div>
                 </div>
             </div>

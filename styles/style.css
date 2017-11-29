@@ -133,5 +133,13 @@ form label {
     min-height: 500px
 }
 .toaster {       
-    background-color: green;
+    background-color: rgb(61, 168, 61);
+    opacity: 0.8;
+    padding: 10px 45px;
+    border-radius: 18px;
+    color: white;
+    right: 0;
+    top: 0;
+    position: absolute;
+    
 }

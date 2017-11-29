@@ -1,9 +1,6 @@
-// Get the modal
 const addModal = document.getElementById('addBookModal');
-
 // Get the button that opens the modal
 const addBtn = document.getElementById("addBookBtn");
-
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close")[0];
 
@@ -31,7 +28,6 @@ window.onclick = (event) => {
 
   }
 }
-
 /**
  * Saves details of a book to local storage.
  * @param {*} event 
@@ -63,11 +59,10 @@ let saveBook = (event) => {
       let books = JSON.parse(localStorage.getItem('books'));
       books.push(book);
       localStorage.setItem('books', JSON.stringify(books));
-    }debugger
-    showSuccessToaster();
+    }
+    localStorage.setItem('isAdded', JSON.stringify(true));
   }
 }
-
 /**
  * Fetches the entire list of books from local storage.
  * @param {*} event 
@@ -97,24 +92,13 @@ let getBookList = (event) => {
       bookList.push(Object.values(bookInList));
     });
 
-    // function getTableColumns(label) {
-    //   return label.map(function (columnConfig) {
-    //     if (columnConfig.type === "numeric") {
-    //       columnConfig["className"] = "dt-body-right"
-    //     }
-    //     return columnConfig;
-    //   })
-    // }
-
     $.getJSON('../resources/bookMetadata.json', (label) => {
-      //  var columns = getTableColumns(label);
-      listLabels.title = label.TITLE;
-      listLabels.author = label.AUTHOR;
-      listLabels.price = label.PRICE;
-      listLabels.authorMail = label.AUTHOR_EMAIL;
-      listLabels.authorPhone = label.AUTHOR_PHONE;
+      listLabels.title = label.TITLE.label;
+      listLabels.author = label.AUTHOR.label;
+      listLabels.price = label.PRICE.label;
+      listLabels.authorMail = label.AUTHOR_EMAIL.label;
+      listLabels.authorPhone = label.AUTHOR_PHONE.label;
       $(document).ready(() => {
-        debugger
         const table = $('#book-table').DataTable({
           data: bookList,
           columns: [
@@ -132,18 +116,16 @@ let getBookList = (event) => {
           var data = table.row(this).data();
           document.getElementById('title').value = data[0];
           document.getElementById('author').value = data[1];
-          document.getElementById('price').value = data[2] == '-' ? '' : data[2].slice(1);
+          document.getElementById('price').value = data[2] === '-' ? '' : data[2].slice(1);
           document.getElementById('summary').value = data[5];
-          document.getElementById('authorMail').value = data[3] == 'nil' ? '' : data[3];
-          document.getElementById('authorPhone').value = data[4] == '-' ? '' : data[4];
+          document.getElementById('authorMail').value = data[3] === 'nil' ? '' : data[3];
+          document.getElementById('authorPhone').value = data[4] === '-' ? '' : data[4];
           document.getElementById('bookId').value = data[6];
           document.getElementById('addBtn').style.display = 'none';
           document.getElementById('editBtn').style.display = 'inline-block';
-          //document.getElementById('editBookHeader').innerHTML += data[0];
           document.getElementById('editBookHeader').style.display = 'block';
           document.getElementById('addBookHeader').style.display = 'none';
           addModal.style.display = "block";
-
         });
       });
     });
@@ -166,7 +148,6 @@ let updateBook = () => {
   const mail = document.getElementById('authorMail').value;
   const phone = document.getElementById('authorPhone').value;
   //validates details.
-  debugger
   const isValid = validateBookDetails(bookTitle, bookAuthor, bookPrice, mail, phone);
   if (isValid && books) {
     const id = document.getElementById('bookId').value;
@@ -182,6 +163,7 @@ let updateBook = () => {
     });
     localStorage.setItem('books', JSON.stringify(books));
   }
+  localStorage.setItem('isAdded', JSON.stringify(true));
 }
 /**
  * Validates the following parameters.
@@ -201,7 +183,6 @@ let validateBookDetails = (bookTitle, bookAuthor, bookPrice, mail, phone) => {
   //Regular Expression - Book Price
   const pricePattern = '[0-9]';
   const priceRegex = RegExp(pricePattern);
-
   if (bookTitle.length === 0) {
     alert("Hey.. You forgot to name me..!");
     event.preventDefault();
@@ -229,12 +210,14 @@ let validateBookDetails = (bookTitle, bookAuthor, bookPrice, mail, phone) => {
   }
   return true;
 }
-
+/**Shows the success toaster */
 let showSuccessToaster = () => {
-  document.getElementById('successToasterLabel').style.visibility = 'visible';
-  setTimeout(()=> {
-    document.getElementById('successToasterLabel').style.visibility = 'hidden';
-    
-  },20000)
-  
+  let isAdded = JSON.parse(localStorage.getItem('isAdded'));
+  if (isAdded) {
+    document.getElementById('successToasterLabel').style.visibility = 'visible';
+    setTimeout(() => {
+      document.getElementById('successToasterLabel').style.visibility = 'hidden';
+      localStorage.setItem('isAdded', JSON.stringify(false));
+    }, 2000)
+  }
 }
