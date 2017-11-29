@@ -1,7 +1,7 @@
 {
-    "TITLE":"Title",
-    "AUTHOR":"Author",
-    "PRICE":"Price",
-    "AUTHOR_EMAIL":"Author Email",
-    "AUTHOR_PHONE":"Author Phone"
+    "TITLE": "Title",
+    "AUTHOR": "Author",
+    "PRICE": "Price",
+    "AUTHOR_EMAIL": "Author Email",
+    "AUTHOR_PHONE": "Author Phone"
 }

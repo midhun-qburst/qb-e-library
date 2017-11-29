@@ -9,19 +9,27 @@ const span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
 addBtn.onclick = () => {
+  document.getElementById('editBookHeader').style.display = 'none';
+  document.getElementById('addBookHeader').style.display = 'block';
+  document.getElementById('addBtn').style.display = 'block';
+  document.getElementById('editBtn').style.display = 'none';
   addModal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = () => {
   addModal.style.display = "none";
+  document.getElementById('addBookForm').reset();
+  
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = (event) => {
-    if (event.target == addModal) {
-      addModal.style.display = "none";
-    }
+  if (event.target == addModal) {
+    addModal.style.display = "none";
+    document.getElementById('addBookForm').reset();
+    
+  }
 }
 
 /**
@@ -89,6 +97,8 @@ let saveBook = (event) => {
     books.push(book);
     localStorage.setItem('books', JSON.stringify(books));
   }
+debugger
+  document.getElementById('successToaster').style.display = 'block'
 }
 
 /**
@@ -105,28 +115,38 @@ let getBookList = (event) => {
     authorMail: '',
     authorPhone: ''
   }
-  let listLabels = {...bookInList};
+  let listLabels = { ...bookInList };
   if (books) {
     books.forEach(element => {
       //Formats price value to international format.
-      element.price = element.price ? '$' + Number.parseInt(element.price).toLocaleString() : '-';     
-      if(!element.authorMail.length) {
+      element.price = element.price ? '$' + Number.parseInt(element.price).toLocaleString() : '-';
+      if (!element.authorMail.length) {
         element.authorMail = 'nil';
-      } 
-      if(!element.authorPhone.length) {
+      }
+      if (!element.authorPhone.length) {
         element.authorPhone = '-';
-      } 
+      }
       Object.assign(bookInList, element);
       bookList.push(Object.values(bookInList));
     });
+    
+    // function getTableColumns(label) {
+    //   return label.map(function (columnConfig) {
+    //     if (columnConfig.type === "numeric") {
+    //       columnConfig["className"] = "dt-body-right"
+    //     }
+    //     return columnConfig;
+    //   })
+    // }
 
-    $.getJSON('../resources/bookMetadata.json',(label) => {
+    $.getJSON('../resources/bookMetadata.json', (label) => {
+    //  var columns = getTableColumns(label);
       listLabels.title = label.TITLE;
       listLabels.author = label.AUTHOR;
-      listLabels.price = label.PRICE;      
+      listLabels.price = label.PRICE;
       listLabels.authorMail = label.AUTHOR_EMAIL;
-      listLabels.authorPhone = label.AUTHOR_PHONE;     
-      $(document).ready(() => {
+      listLabels.authorPhone = label.AUTHOR_PHONE;
+      $(document).ready(() => { debugger
         const table = $('#book-table').DataTable({
           data: bookList,
           columns: [
@@ -139,27 +159,50 @@ let getBookList = (event) => {
           "columnDefs": [
             { className: "dt-body-right", "targets": [ 2,4 ] }
           ]
-          
         });
         $('#book-table tbody').on('click', 'tr', function () {
-          var data = table.row( this ).data();
-          alert( 'You clicked on '+data[0]+'\'s row' );
-      } );
+          var data = table.row(this).data();
+          document.getElementById('title').value = data[0];
+          document.getElementById('author').value = data[1];
+          document.getElementById('price').value = data[2] == '-' ? '' : data[2].slice(1);
+          document.getElementById('summary').value = data[5];
+          document.getElementById('authorMail').value = data[3] == 'nil' ? '' : data[3];
+          document.getElementById('authorPhone').value = data[4] == '-' ? '' : data[4];
+          document.getElementById('bookId').value = data[6];        
+          document.getElementById('addBtn').style.display = 'none';
+          document.getElementById('editBtn').style.display = 'inline-block';
+          //document.getElementById('editBookHeader').innerHTML += data[0];
+          document.getElementById('editBookHeader').style.display = 'block';
+          document.getElementById('addBookHeader').style.display = 'none';
+          addModal.style.display = "block";
+
+        });
       });
-    });    
+    });
   }
   else {
     $('#book-table').append(
-      '<div>Hi, your books will get listed here once you add them. Have a good day..!! </div>' 
+      '<div>Hi, your books will get listed here once you add them. Have a good day..!! </div>'
     );
   }
 }
 /**
  * Hides "Show added books" button if there are no entries.
  */
-let bookListButtonVisibility = () => {
+let updateBook = () => {
   const books = JSON.parse(localStorage.getItem('books'));
-  if (!books) {
-    document.getElementById("showListButton").style.visibility = "hidden";
+  if (books) {debugger
+    const id = document.getElementById('bookId').value;
+    books.map((book) => {
+      if( book.id == id) {
+        book.title = document.getElementById('title').value;
+        book.author = document.getElementById('author').value;
+        book.price = document.getElementById('price').value;
+        book.summary = document.getElementById('summary').value;
+        book.authorMail = document.getElementById('authorMail').value;
+        book.authorPhone = document.getElementById('authorPhone').value;
+      }
+    });
+    localStorage.setItem('books', JSON.stringify(books));   
   }
 }
