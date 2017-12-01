@@ -11,10 +11,12 @@
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
 </head>
 
-<body onload="getBookList(event);">
-    <div >
+<body onload="getBookList(event);showSuccessToaster();">
+    <div>
         <h1>e-book Library</h1>
-        <!-- Book List -->
+
+        <label id="successToasterLabel" class="toaster invisible">Book added successfully</label>
+
         <div class="jumbotron">
             <div class="container">
 
@@ -26,17 +28,23 @@
                 </table>
             </div>
         </div>
-        <!-- Modal -->
+
+
+
+        <!-- Add Modal -->
         <div id="addBookModal" class="modal">
-            <!-- Modal content -->
+            <!-- Add Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <div class="jumbotron">
                     <div class="container ">
-                        <h2>Add a book...</h2>
+                        <h2 id="addBookHeader">Add a book...</h2>
+                        <h2 id="editBookHeader">Edit details of title </h2>
+                        <input class="invisible" type="text" id="bookId">
 
                         <form id="addBookForm">
                             <div class='row'>
+
                                 <div class="form-group col-md-4">
                                     <label for="title">Title
                                         <span class="red">*</span>:</label>
@@ -71,7 +79,9 @@
                                 </div>
                             </div>
                         </form>
-                        <input class="btn btn-primary pull-right" type="submit" value="Add" form="addBookForm" onclick="saveBook(event);">
+                        <input id="addBtn" class="btn btn-primary pull-right" type="submit" value="Add" form="addBookForm" onclick="saveBook(event);showSuccessToaster()">
+                        <input id="editBtn" class="btn btn-primary pull-right" type="submit" value="Edit" form="addBookForm" onclick="updateBook();">
+
                     </div>
                 </div>
             </div>
