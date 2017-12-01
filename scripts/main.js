@@ -39,10 +39,12 @@ let saveBook = (event) => {
   const bookSummary = document.getElementById('summary').value;
   const mail = document.getElementById('authorMail').value;
   const phone = document.getElementById('authorPhone').value;
+  const date = new Date();
   //validates details.
   const isValid = validateBookDetails(bookTitle, bookAuthor, bookPrice, mail, phone);
   if (isValid) {
     var book = {
+      id: date.getTime(),
       title: bookTitle,
       author: bookAuthor,
       price: bookPrice,
@@ -117,10 +119,10 @@ let getBookList = (event) => {
           document.getElementById('title').value = data[0];
           document.getElementById('author').value = data[1];
           document.getElementById('price').value = data[2] === '-' ? '' : data[2].slice(1);
-          document.getElementById('summary').value = data[5];
+          document.getElementById('summary').value = data[6];
           document.getElementById('authorMail').value = data[3] === 'nil' ? '' : data[3];
           document.getElementById('authorPhone').value = data[4] === '-' ? '' : data[4];
-          document.getElementById('bookId').value = data[6];
+          document.getElementById('bookId').value = data[5];
           document.getElementById('addBtn').style.display = 'none';
           document.getElementById('editBtn').style.display = 'inline-block';
           document.getElementById('editBookHeader').style.display = 'block';
