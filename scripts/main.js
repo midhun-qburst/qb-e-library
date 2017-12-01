@@ -94,7 +94,7 @@ let getBookList = (event) => {
       bookList.push(Object.values(bookInList));
     });
 
-    $.getJSON('../resources/bookMetadata.json', (label) => {
+    $.getJSON('resources/bookMetadata.json', (label) => {
       listLabels.title = label.TITLE.label;
       listLabels.author = label.AUTHOR.label;
       listLabels.price = label.PRICE.label;
