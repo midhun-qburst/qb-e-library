@@ -1,3 +1,6 @@
+body {
+    width: 1000px;
+}
 input {
     font-family: Lobster;
     letter-spacing: 3px;
