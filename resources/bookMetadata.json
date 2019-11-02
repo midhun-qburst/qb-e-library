@@ -1,0 +1,27 @@
+{
+    "TITLE": {
+        "index": "0",
+        "label": "Title",
+        "type": "alpha"
+    },
+    "AUTHOR": {
+        "index": "1",
+        "label": "Author",
+        "type": "alpha"
+    },
+    "PRICE": {
+        "index": "2",
+        "label": "Price",
+        "type": "numeric"
+    },
+    "AUTHOR_EMAIL": {
+        "index": "3",
+        "label": "Author Email",
+        "type": "alpha"
+    },
+    "AUTHOR_PHONE": {
+        "index": "4",
+        "label": "Author Phone",
+        "type": "numeric"
+    }
+}
